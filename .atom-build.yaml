@@ -1,0 +1,8 @@
+cmd: "gradle run"
+name: "run"
+sh: true
+targets:
+  jar:
+    cmd: "gradle jar"
+  clean:
+    cmd: "gradle clean"

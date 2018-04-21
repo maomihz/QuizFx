@@ -1,0 +1,32 @@
+plugins {
+  id 'java'
+  id 'application'
+}
+
+mainClassName = 'QuizMain'
+/* mainClassName = 'quiz.parser.QuizParser' */
+def bin = file('bin')
+def dist = file('dist')
+def name = 'SpaceQuiz'
+
+
+sourceSets.main.java {
+  srcDirs 'src'
+  outputDir = bin
+}
+
+sourceSets.main.resources {
+  srcDirs 'res'
+}
+
+jar {
+  destinationDir = dist
+  manifest.attributes 'Main-Class': mainClassName,
+    'Implementation-Title': name
+}
+
+
+clean.doFirst {
+    delete bin
+    delete dist
+}

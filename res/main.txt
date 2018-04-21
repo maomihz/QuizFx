@@ -1,0 +1,117 @@
+OK this whole thing is a garbage.
+meow meow meow meow meow cat
+
+@TF
+You would only weigh about 1/6th of your current weight if you stood on the Moon.
+True
+@
+You would only weigh about 1/12th of your current weight if you stood on the Moon.
+False
+@
+You would only weigh about 1/3th of your current weight if you stood on the Moon.
+False
+
+@TF
+Saturn can float on water.
+True
+@
+Saturn cannot float on water.
+False
+
+@TF
+Earth is the only planet that has plate tectonics.
+True
+
+@TF
+Mars has the biggest volcano (that we know of).
+True
+@
+Venus has the biggest volcano (that we know of).
+False
+
+@TF
+Venus has super-powerful winds.
+True
+
+@TF
+Spacecraft have visited every planet in our solar system.
+True
+
+@TF
+There is no life in the solar system.
+False
+
+@TF
+Only Saturn has Ring system
+False
+@
+Only Jupiter has Ring system.
+False
+
+@TF
+Neptune radiates more heat than it gets from the sun.
+False
+@
+Neptune radiates less heat than it gets from the sun.
+True
+
+@TF
+Jupiter has more heavy elements (proportionally) than the sun.
+True
+@
+Jupiter has less heavy elements (proportionally) than the sun.
+False
+
+@SC
+The light takes ____ minutes to travel from the Sun the Earth.
+3
+5
+*8
+
+@SC
+On average it takes the light ____ seconds to travel from the moon to the earth.
+*1.3
+3.8
+
+@TF
+The first man on the moon was Neil Armstrong.
+True
+
+@SC
+The Space Station circles the earth every ____ minutes.
+*90
+60
+30
+300
+
+@MC
+Approximately, How many stars are there in the Milky Way?
+*200 trillion
+200 billion
+2 trillion
+2 billion
+200 million
+
+@SC
+You shouted in space and someone was right next to you. Would they hear you?
+*No
+Yes
+@
+You shouted in space and someone was right next to you. They would not hear you.
+*Yes
+No
+
+@TF
+Our moon is moving towards the Earth every year!
+False
+@
+Our moon is moving away from Earth every year!
+True
+
+@TF
+Venus does not have moons.
+True
+
+@END
+
+This is nonsense
