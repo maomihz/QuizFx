@@ -80,8 +80,10 @@ public class QuizParser {
         qType = line.substring(1).toLowerCase();
         if (qType.length() <= 0) {
           newVariant = true;
+          System.out.println("New Variant");
         } else {
           newQuestion = true;
+          System.out.println("New Question");
         }
       } else if (currentQuestionType == null) {
         // Ignore everything before the first @
@@ -94,12 +96,13 @@ public class QuizParser {
         if (currentAnswers.size() <= 0) {
           throw new ParseException("Not enough answers given.", lineCount);
         }
+        ChoiceQuestion cq;
+
         // True/False question only accepts exactly one answer,
         // true or false. More answers are ignored.
         if (currentQuestionType.equals("tf")) {
           String answer = currentAnswers.get(0);
-          TrueFalseQuestion tfq = new TrueFalseQuestion(currentQuestion, Boolean.valueOf(answer));
-          template.addQuestion(tfq);
+          cq = new TrueFalseQuestion(currentQuestion, Boolean.valueOf(answer));
         // SC or MC
         // Simple choice question and multiple choice are basically the same
         } else {
@@ -110,7 +113,6 @@ public class QuizParser {
           }
 
           // Create the question object
-          ChoiceQuestion cq;
           if (currentQuestionType.equals("sc")) {
             cq = new ChoiceQuestion(currentQuestion, answers, currentAnswer);
           } else if (currentQuestionType.equals("mc")) {
@@ -118,9 +120,14 @@ public class QuizParser {
           } else { // currently only support tf, sc, mc
             throw new ParseException("Invalid question type: " + currentQuestionType.toUpperCase(), lineCount);
           }
-          template.addQuestion(cq);
         }
+
+        System.out.println("↓↓↓ *** Question *** ↓↓↓");
+        System.out.println(cq);
+        System.out.println("↑↑↑ * End Question * ↑↑↑");
+        template.addQuestion(cq);
         currentAnswers.clear();
+        currentQuestion = null;
         answerCount = 0;
       }
 
@@ -128,9 +135,8 @@ public class QuizParser {
       if (newQuestion) {
         if (currentQuestionType != null) {
           builder.add(template);
+          template = new QuestionTemplate<ChoiceQuestion>();
         }
-        template = new QuestionTemplate<ChoiceQuestion>();
-        currentQuestion = null;
         currentQuestionType = qType;
       }
 
@@ -150,7 +156,7 @@ public class QuizParser {
           answerCount++;
         }
       }
-      // System.out.println(line);
+      System.out.println(line);
 
       if (currentQuestionType.equals("end")) {
         break;

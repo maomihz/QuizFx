@@ -13,9 +13,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
+
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 
 import java.util.List;
 import java.util.Iterator;
@@ -36,13 +41,14 @@ import quiz.parser.ParseException;
 
 public class QuizMain extends Application {
 
-  Text question, status;
-  ChoiceQuestionBuilder quizSet;
-  Iterator<ChoiceQuestion> currentQuestions;
-  HBox answerBtns;
+  private Text question, status;
+  private ChoiceQuestionBuilder quizSet;
+  private Iterator<ChoiceQuestion> questionIterator;
+  private ChoiceQuestion currentQuestion;
+  private HBox answerBtns;
 
   public QuizMain() {
-    URL u = QuizParser.class.getResource("/main.txt");
+    URL u = QuizParser.class.getResource("/basic.txt");
     QuizParser p = new QuizParser(u);
     try {
       quizSet = p.parse();
@@ -84,21 +90,44 @@ public class QuizMain extends Application {
   }
 
 
-  public void initQuestion() {
+  private void initQuestion() {
     List<ChoiceQuestion> cqSet = quizSet.getQuestions(10);
-    currentQuestions = cqSet.iterator();
+    questionIterator = cqSet.iterator();
     showQuestion();
   }
 
-  public void showQuestion() {
-    if (currentQuestions.hasNext()) {
+  private void selectAnswer(String choice) {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Information Dialog");
+    alert.setHeaderText(null);
+    if (currentQuestion.checkAnswer(choice)) {
+      alert.setContentText("Correct!");
+    } else {
+      alert.setContentText("Incorrect!");
+    }
+
+    alert.showAndWait();
+    showQuestion();
+  }
+
+  private void showQuestion() {
+    if (questionIterator.hasNext()) {
       answerBtns.getChildren().clear();
 
-      ChoiceQuestion q = currentQuestions.next();
-      question.setText(q.getQuestion());
-      for (String s : q.getAnswers()) {
+      currentQuestion = questionIterator.next();
+      question.setText(currentQuestion.getQuestion());
+
+      System.out.println(currentQuestion);
+
+      for (String s : currentQuestion.getAnswers()) {
         Button ans = new Button(s);
         answerBtns.getChildren().add(ans);
+        ans.setOnAction(new EventHandler<ActionEvent>() {
+          public void handle(ActionEvent e) {
+            Button source = (Button)(e.getSource());
+            selectAnswer(source.getText());
+          }
+        });
       }
     }
 

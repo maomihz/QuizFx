@@ -31,7 +31,7 @@ public class ChoiceQuestionBuilder {
 
     // Choose real_count number of questions
     int real_count = (int)Math.min(count, questions.size());
-    List<ChoiceQuestion> result = new ArrayList();
+    List<ChoiceQuestion> result = new ArrayList<ChoiceQuestion>();
 
     for (int i = 0; i < real_count; i++) {
       // Get a variant, and shuffle it

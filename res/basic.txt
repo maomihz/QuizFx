@@ -1,0 +1,73 @@
+OK this whole thing is a garbage.
+meow meow meow meow meow cat
+
+@TF
+Select "True".
+True
+@
+Select "False".
+False
+
+
+@TF
+Select "Yes".
+True
+@
+Select "No".
+False
+
+
+@TF
+True is correct.
+True
+@
+False is correct
+False
+
+@MC
+Select A is correct.
+*I'm A
+I'm B
+I'm C
+I'm D
+I'm E
+@
+Select B is correct.
+I'm A
+*I'm B
+I'm C
+I'm D
+I'm E
+@
+Select C is correct.
+I'm A
+I'm B
+*I'm C
+I'm D
+I'm E
+
+@SC
+Select "Apple".
+*Apple
+Microsoft
+Microsoft
+Microsoft
+Microsoft
+@
+Select "Microsoft".
+Apple
+Apple
+Apple
+Apple
+*Microsoft
+
+@TF
+5+6=12
+False
+
+@TF
+7-4=3
+True
+
+@END
+This is nonsense
