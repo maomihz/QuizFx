@@ -23,7 +23,7 @@ public class SimpleQuestion extends Question {
 
   @Override()
   public boolean checkAnswer(String choice) {
-    return myAnswer.equals(choice);
+    return myAnswer.trim().equals(choice.trim());
   }
 
 

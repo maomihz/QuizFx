@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import quiz.builder.ChoiceQuestionBuilder;
+import quiz.builder.QuestionBuilder;
 import quiz.builder.QuestionTemplate;
 
+import quiz.Question;
 import quiz.ChoiceQuestion;
+import quiz.SimpleQuestion;
 import quiz.MultipleChoiceQuestion;
 import quiz.TrueFalseQuestion;
 import quiz.ConfirmationQuestion;
@@ -23,7 +25,7 @@ public class QuizParser {
     System.out.println(u);
     QuizParser p = new QuizParser(u);
     try {
-      ChoiceQuestionBuilder b = p.parse();
+      QuestionBuilder b = p.parse();
       System.out.println(b.getMetadata());
     } catch (IOException e) {
     }
@@ -61,10 +63,10 @@ public class QuizParser {
   }
 
 
-  public ChoiceQuestionBuilder parse() throws IOException {
+  public QuestionBuilder parse() throws IOException {
     Scanner s = new Scanner(url.openStream());
-    ChoiceQuestionBuilder builder = new ChoiceQuestionBuilder();
-    QuestionTemplate<ChoiceQuestion> template = new QuestionTemplate<ChoiceQuestion>();
+    QuestionBuilder builder = new QuestionBuilder();
+    QuestionTemplate<Question> template = new QuestionTemplate<Question>();
 
     // Question type usually represented by two letters
     String currentQuestionType = null;
@@ -131,9 +133,15 @@ public class QuizParser {
 
       // Process a new question / new variant if necessary
       if ((newQuestion || newVariant) && currentQuestionType != null) {
-        ChoiceQuestion cq;
-
-        if (currentQuestionType.equals("tf")) {
+        Question cq;
+        if (currentQuestionType.equals("sp")) {
+          if (currentAnswers.size() <= 0) {
+            throw new ParseException("Not enough answers given for Simple Question.", lineCount);
+          }
+          String answer = currentAnswers.get(0);
+          cq = new SimpleQuestion(currentQuestion, answer);
+        }
+        else if (currentQuestionType.equals("tf")) {
           // True/False question only accepts exactly one answer,
           // true or false. More answers are ignored.
           if (currentAnswers.size() <= 0) {
@@ -186,7 +194,7 @@ public class QuizParser {
       if (newQuestion) {
         if (currentQuestionType != null) {
           builder.add(template);
-          template = new QuestionTemplate<ChoiceQuestion>();
+          template = new QuestionTemplate<Question>();
         }
         currentQuestionType = qType;
       }

@@ -38,7 +38,7 @@ public class MenuScene implements SceneContainer, ChangeListener<String> {
 
   ListView<String> quizList;
   LinkedHashMap<String, URL> fileMap;
-  Text title, content;
+  Text title, content, difficulty;
   Button startButton;
   String selectedFile;
 
@@ -59,19 +59,23 @@ public class MenuScene implements SceneContainer, ChangeListener<String> {
     refresh();
     quizList.setMaxWidth(200);
     quizList.setMinWidth(200);
-    primaryPane.add(quizList, 0, 0, 1, 2);
+    primaryPane.add(quizList, 0, 0, 1, 3);
 
     // Set the texts
     title = new Text("");
     title.setFont(Font.font("Arial", 30));
-    content = new Text("Select a quiz from left");
+    content = new Text("Select a quiz from the left list");
+    difficulty = new Text();
     TextFlow titleFlow = new TextFlow(title);
     TextFlow contentFlow = new TextFlow(content);
+    TextFlow difficultyFlow = new TextFlow(difficulty);
+
     primaryPane.add(titleFlow, 1, 0);
     primaryPane.add(contentFlow, 1, 1);
+    primaryPane.add(difficultyFlow, 1, 2);
 
     startButton = new Button("Start!");
-    primaryPane.add(startButton, 1, 2);
+    primaryPane.add(startButton, 1, 3);
 
     myScene = new Scene(primaryPane, w, h);
   }
@@ -127,6 +131,15 @@ public class MenuScene implements SceneContainer, ChangeListener<String> {
       Map<String, String> data = parser.parseMetadata();
       title.setText(data.get("title"));
       content.setText(data.get("description"));
+      String difficultyStr = "Difficulty: ";
+      try {
+        for (int i = 0; i < Integer.parseInt(data.get("difficulty")); i++) {
+          difficultyStr += '★';
+        }
+        difficulty.setText(difficultyStr);
+      } catch (NumberFormatException e) {
+        difficulty.setText("");
+      }
     } catch (IOException e) {}
   }
 

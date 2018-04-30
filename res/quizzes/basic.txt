@@ -88,6 +88,11 @@ False
 7-4=3
 True
 
+
+@SP
+Type "Hello, world"
+hello, world
+
 @END
 
 Meow Meow Meow

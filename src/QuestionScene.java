@@ -8,6 +8,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -34,7 +35,7 @@ import quiz.ChoiceQuestion;
 import quiz.MultipleChoiceQuestion;
 import quiz.TrueFalseQuestion;
 
-import quiz.builder.ChoiceQuestionBuilder;
+import quiz.builder.QuestionBuilder;
 import quiz.builder.QuestionTemplate;
 
 import quiz.parser.QuizParser;
@@ -47,9 +48,9 @@ public class QuestionScene implements SceneContainer {
   VBox box;
 
   private Text question, status;
-  private ChoiceQuestionBuilder quizSet;
-  private Iterator<ChoiceQuestion> questionIterator;
-  private ChoiceQuestion currentQuestion;
+  private QuestionBuilder quizSet;
+  private Iterator<Question> questionIterator;
+  private Question currentQuestion;
   private HBox answerBtns;
 
   Button quitButton;
@@ -103,7 +104,7 @@ public class QuestionScene implements SceneContainer {
 
 
   private void initQuestion() {
-    List<ChoiceQuestion> cqSet = quizSet.getQuestions(10);
+    List<Question> cqSet = quizSet.getQuestions(10);
     questionIterator = cqSet.iterator();
     showQuestion();
   }
@@ -129,12 +130,24 @@ public class QuestionScene implements SceneContainer {
       currentQuestion = questionIterator.next();
       question.setText(currentQuestion.getQuestion());
 
-      for (String s : currentQuestion.getAnswers()) {
-        Button ans = new Button(s);
-        answerBtns.getChildren().add(ans);
-        ans.setOnAction(new EventHandler<ActionEvent>() {
+      if (currentQuestion instanceof ChoiceQuestion) {
+        ChoiceQuestion cq = (ChoiceQuestion)currentQuestion;
+        for (String s : cq.getAnswers()) {
+          Button ans = new Button(s);
+          answerBtns.getChildren().add(ans);
+          ans.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+              Button source = (Button)(e.getSource());
+              selectAnswer(source.getText());
+            }
+          });
+        }
+      } else {
+        TextField tf = new TextField();
+        answerBtns.getChildren().add(tf);
+        tf.setOnAction(new EventHandler<ActionEvent>() {
           public void handle(ActionEvent e) {
-            Button source = (Button)(e.getSource());
+            TextField source = (TextField)(e.getSource());
             selectAnswer(source.getText());
           }
         });

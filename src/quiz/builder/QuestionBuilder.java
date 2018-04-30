@@ -15,34 +15,36 @@ import java.util.Collections;
 // The builder class collects questions, and builds
 // question objects on the run
 // The Quiz parser also returns this as an object
-public class ChoiceQuestionBuilder {
-  private List<QuestionTemplate<ChoiceQuestion>> questions;
+public class QuestionBuilder {
+  private List<QuestionTemplate<Question>> questions;
   private AbstractMap<String, String> metadata;
 
   // Constructor
-  public ChoiceQuestionBuilder() {
-    questions = new ArrayList<QuestionTemplate<ChoiceQuestion>>();
+  public QuestionBuilder() {
+    questions = new ArrayList<QuestionTemplate<Question>>();
     metadata = new HashMap<String, String>();
   }
 
   // Add a question template to the list
-  public void add(QuestionTemplate<ChoiceQuestion> q) {
+  public void add(QuestionTemplate<Question> q) {
     questions.add(q);
   }
 
   // Get random questions from the builder
-  public List<ChoiceQuestion> getQuestions(int count) {
+  public List<Question> getQuestions(int count) {
     // Shuffle the question collection
     Collections.shuffle(questions);
 
     // Choose real_count number of questions
     int real_count = (int)Math.min(count, questions.size());
-    List<ChoiceQuestion> result = new ArrayList<ChoiceQuestion>();
+    List<Question> result = new ArrayList<Question>();
 
     for (int i = 0; i < real_count; i++) {
       // Get a variant, and shuffle it
-      ChoiceQuestion q = questions.get(i).getOne();
-      q.shuffle();
+      Question q = questions.get(i).getOne();
+      if (q instanceof ChoiceQuestion) {
+        ((ChoiceQuestion)q).shuffle();
+      }
       result.add(q);
     }
 
