@@ -1,5 +1,8 @@
-OK this whole thing is a garbage.
-meow meow meow meow meow cat
+@= Quiz App default quiz set - Space Quiz =@
+
+@title=Space Knowledge Quiz
+@description=Selected questions on space knowledge.
+@difficulty=2
 
 @TF
 You would only weigh about 1/6th of your current weight if you stood on the Moon.
@@ -10,6 +13,8 @@ False
 @
 You would only weigh about 1/3th of your current weight if you stood on the Moon.
 False
+
+@= This is a comment
 
 @TF
 Saturn can float on water.

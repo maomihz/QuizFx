@@ -22,7 +22,7 @@ public class ChoiceQuestion extends Question {
   }
 
   // set the correct answer!
-  protected void setAnswer(int choice) {
+  public void setAnswer(int choice) {
     if (choice < 0 || choice >= myChoices.length) {
       throw new IllegalArgumentException(choice + ": Please give a good choice");
     }

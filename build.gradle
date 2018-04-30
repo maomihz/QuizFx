@@ -5,6 +5,7 @@ plugins {
 
 mainClassName = 'QuizMain'
 /* mainClassName = 'quiz.parser.QuizParser' */
+/* mainClassName = 'CenterTest' */
 def bin = file('bin')
 def dist = file('dist')
 def name = 'SpaceQuiz'

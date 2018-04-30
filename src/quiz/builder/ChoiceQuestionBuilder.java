@@ -7,16 +7,22 @@ import quiz.MultipleChoiceQuestion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.AbstractMap;
 
 import java.util.Collections;
 
 // The builder class collects questions, and builds
 // question objects on the run
+// The Quiz parser also returns this as an object
 public class ChoiceQuestionBuilder {
   private List<QuestionTemplate<ChoiceQuestion>> questions;
+  private AbstractMap<String, String> metadata;
 
+  // Constructor
   public ChoiceQuestionBuilder() {
     questions = new ArrayList<QuestionTemplate<ChoiceQuestion>>();
+    metadata = new HashMap<String, String>();
   }
 
   // Add a question template to the list
@@ -41,6 +47,11 @@ public class ChoiceQuestionBuilder {
     }
 
     return result;
-
   }
+
+  // A quiz can contain various metadatas, and it's a String -> String map
+  public AbstractMap<String, String> getMetadata() {
+    return metadata;
+  }
+
 }
