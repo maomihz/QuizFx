@@ -1,6 +1,15 @@
 plugins {
   id 'java'
   id 'application'
+  id("org.openjfx.javafxplugin") version "0.1.0"
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+repositories {
+    mavenCentral()
 }
 
 sourceCompatibility = 1.8
@@ -16,7 +25,6 @@ def name = 'QuizFx'
 
 sourceSets.main.java {
   srcDirs 'src'
-  outputDir = bin
 }
 
 sourceSets.main.resources {
@@ -24,7 +32,6 @@ sourceSets.main.resources {
 }
 
 jar {
-  destinationDir = dist
   manifest.attributes 'Main-Class': mainClassName,
     'Implementation-Title': name
 }
